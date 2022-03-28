@@ -107,7 +107,7 @@ function mostrarPlatillos(platillos){
 
     inputCantidad.onchange = function(){
       const cantidad = parseInt (inputCantidad.value);
-      console.log(cantidad);
+      // console.log(cantidad);
       agregarPlatillo({platillo, cantidad});
     };
 
@@ -130,8 +130,19 @@ function mostrarPlatillos(platillos){
   })
 }
 
-function agregarPlatillo({platillo, cantidad}){
-  console.log('desde agregar platillo cantidad', cantidad)
-  console.log('desde agregar platillo', platillo.id)
+function agregarPlatillo(producto){
+  // Extraer el pedido actual
+  let { pedido } = cliente; 
+
+  // Revisar que la cantidad sea mayor a cero 
+  if(producto.cantidad > 0){
+    cliente.pedido = [...pedido, producto];
+  }else{
+    console.log("No es mayor a cero")
+
+  }
+
+  console.log(cliente.pedido)
+
 
 }
