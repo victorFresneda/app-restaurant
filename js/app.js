@@ -108,7 +108,7 @@ function mostrarPlatillos(platillos){
     inputCantidad.onchange = function(){
       const cantidad = parseInt (inputCantidad.value);
       // console.log(cantidad);
-      agregarPlatillo({platillo, cantidad});
+      agregarPlatillo({...platillo, cantidad});
     };
 
     const agregar = document.createElement('DIV');
