@@ -72,7 +72,7 @@ function obtenerPlatillos(){
   fetch(url)
       .then(respuesta => respuesta.json())
       .then( resultado => mostrarPlatillos(resultado))
-      .catch( error => console.log(error))
+      .catch( error => alert(error))
 
       
 }
@@ -107,7 +107,6 @@ function mostrarPlatillos(platillos){
 
     inputCantidad.onchange = function(){
       const cantidad = parseInt (inputCantidad.value);
-      // console.log(cantidad);
       agregarPlatillo({...platillo, cantidad});
     };
 
@@ -136,13 +135,32 @@ function agregarPlatillo(producto){
 
   // Revisar que la cantidad sea mayor a cero 
   if(producto.cantidad > 0){
-    cliente.pedido = [...pedido, producto];
-  }else{
-    console.log("No es mayor a cero")
+    
+      if(pedido.some(articulo => articulo.id === producto.id)){
+          // El articulo ya existe, actualizar la cantidad
+          const pedidoActalizado = pedido.map(articulo => {
+            if( articulo.id === producto.id){
+              articulo.cantidad = producto.cantidad;
+            }
+            return articulo;
 
+          });
+          // Se asigna el nuevo array a cliente.pedido
+          cliente.pedido = [...pedidoActalizado]
+      }else{
+        // El articulo no existe, lo agregamos al array de pedidos
+        cliente.pedido = [...pedido, producto];
+      }
+  }else{
+    // Eliminar elementos cuando la cantidad es 0
+    // const resultado = pedido.filter( articulo => articulo.id !== producto.id);
+  console.log("Es menor a cero")
+    
   }
 
   console.log(cliente.pedido)
+  console.log(producto)
+
 
 
 }
